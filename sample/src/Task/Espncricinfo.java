@@ -4,7 +4,7 @@ public class Espncricinfo {
 	private int SIZE = 50;
 	private Batman[] batsmans = new Batman[50];
 	private int noOfBatsmen;
-	
+	static int i=0;
 	public Batman[] getBatsmans()
 	{
 		return batsmans;
@@ -18,6 +18,7 @@ public class Espncricinfo {
 		if(getNoOfBatsmen()<SIZE-1)
 		{
 			Batman ob = new Batman(id,name,runsScored,centuries,halfCenturies,ballsFaced,fours,sixes);
+			batsmans[i++]=ob;
 			return ob.getId();
 		}
 		else
@@ -25,25 +26,30 @@ public class Espncricinfo {
 			return 0;
 		}
 	}
-	Batman updateBatsmanStats(int id,int runsScored,int fours,int sixes,int ballsFaced)
+	Batman updateBatsmanStats(int id,int runsScored,int centuries,int halfCenturies,int fours,int sixes,int ballsFaced)
 	{
 		boolean status = true;
 		Batman ob = new Batman();
 		for(int i=0;i<batsmans.length;i++)
 		{
-			if(id==batsmans[i].getId())
+			if(batsmans[i]!=null)
 			{
-				status=false;
-				batsmans[i].setRunsScored(runsScored);
-				batsmans[i].setFours(fours);
-				batsmans[i].setSixes(sixes);
-				batsmans[i].setBallFaced(ballsFaced);
-				ob = batsmans[i];
-				break;
-			}
-			else
-			{
-				status=true;
+				if(id==batsmans[i].getId())
+				{
+					status=false;
+					batsmans[i].setCenturies(centuries);
+					batsmans[i].setHalfCenturies(halfCenturies);
+					batsmans[i].setRunsScored(runsScored);
+					batsmans[i].setFours(fours);
+					batsmans[i].setSixes(sixes);
+					batsmans[i].setBallFaced(ballsFaced);
+					ob = batsmans[i];
+					break;
+				}
+				else
+				{
+					status=true;
+				}
 			}
 		}
 		if(status)
@@ -62,15 +68,18 @@ public class Espncricinfo {
 		Batman ob = new Batman();
 		for(int i=0;i<batsmans.length;i++)
 		{
-			if(batsmanId==batsmans[i].getId())
+			if(batsmans[i]!=null)
 			{
-				status = false;
-				ob = batsmans[i];
-				break;
-			}
-			else
-			{
-				status = true;
+				if(batsmanId==batsmans[i].getId())
+				{
+					status = false;
+					ob = batsmans[i];
+					break;
+				}
+				else
+				{
+					status = true;
+				}
 			}
 		}
 			if(status)
@@ -83,5 +92,20 @@ public class Espncricinfo {
 			}
 		
 	}
-
+	public void getAllDetails()
+	{
+		for(int i=0;i<batsmans.length;i++)
+		{
+			if(batsmans[i]!=null)
+			{
+				System.out.println(batsmans[i].getId()+" "+batsmans[i].getName()+" "+batsmans[i].getRunsScored()+" "+batsmans[i].getCenturies()+" "+batsmans[i].getHalfCenturies()+" "+batsmans[i].getBallsFaced()+" "+batsmans[i].getFours()+" "+batsmans[i].getSixes());
+			}
+			else
+				break;
+		}
+	}
+	public void getDetails(Batman ob)
+	{
+		System.out.println(ob.getId()+" "+ob.getRunsScored()+" "+ob.getFours()+" "+ob.getSixes()+" "+ob.getBallsFaced());
+	}
 }
